@@ -16,7 +16,8 @@ def get_news(keyword, fromdate, todate):
               "order": "asc",
               "sort": "activity",
               "tagged": keyword,
-              "site": "stackoverflow"}
+              "site": "stackoverflow",
+              "filter": "!nKzQUR30W7"}
     response = requests.get(url=url, params=params)
     res = response.json()['items']
     if response.status_code != 200:
@@ -24,8 +25,11 @@ def get_news(keyword, fromdate, todate):
     for ind, elm in enumerate(res):
         title = elm['title']
         q_link = elm['link']
-        news[title] = q_link
-    return news
+        body = elm['body_markdown']
+        news = [title, q_link, body]
+        print(news)
+        # news[title] = [q_link, body]
+        # return news
 
 # option 2
 
